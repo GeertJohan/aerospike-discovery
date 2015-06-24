@@ -88,7 +88,7 @@ coreos:
         Restart=always
         ExecStartPre=-/usr/bin/docker kill aerospike-discovery
         ExecStartPre=-/usr/bin/docker rm aerospike-discovery
-        ExecStartPre=/usr/bin/docker pull geertjohan/aerospike-discovery-manual
+        ExecStartPre=/usr/bin/docker pull geertjohan/aerospike-discovery
         ExecStart=/opt/aerospike-discovery.sh
         ExecStop=/usr/bin/docker stop -t 5 aerospike-discovery
 
@@ -177,7 +177,7 @@ write_files:
       aerospike_id=$(docker inspect --format '{{ .Id }}' aerospike)
       aerospike_ipaddr=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' aerospike)
       local_etcd_ip=$(ip addr | grep 'eth0:' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
-      /usr/bin/docker run --name aerospike-discovery geertjohan/aerospike-discovery-manual \
+      /usr/bin/docker run --name aerospike-discovery geertjohan/aerospike-discovery \
         /usr/local/bin/aerospike-discovery \
         --local-aerospike-name="$aerospike_id" \
         --local-aerospike-ip="$aerospike_ipaddr" \
