@@ -11,8 +11,15 @@ import (
 	"github.com/coreos/go-etcd/etcd"
 )
 
+var logFlags int
+
 func main() {
 	parseFlags()
+
+	logFlags &= log.Lshortfile
+	if !flags.LoggingDisableTimestamp {
+		logFlags &= log.Ldate & log.Ltime
+	}
 
 	startAnnouncer()
 
@@ -26,7 +33,7 @@ func startAnnouncer() {
 		TTL:      flags.AnnounceTTL,
 		Interval: flags.AnnounceInterval,
 
-		Logger: log.New(os.Stdout, `aerospike-discovery_announcer`, log.LstdFlags),
+		Logger: log.New(os.Stdout, `[aerospike-discovery announcer] `, logFlags),
 	}
 	if len(flags.EtcdAddresses) > 0 {
 		announcerConfig.EtcdClient = etcd.NewClient(flags.EtcdAddresses)
@@ -47,7 +54,7 @@ func runWatcher() {
 	// setup etcd client
 	config := &asdisc.WatcherConfig{
 		ClusterPrefix: flags.ClusterPrefix,
-		Logger:        log.New(os.Stdout, `aerospike-discovery_watcher`, log.LstdFlags),
+		Logger:        log.New(os.Stdout, `[aerospike-discovery watcher] `, logFlags),
 	}
 	if len(flags.EtcdAddresses) > 0 {
 		config.EtcdClient = etcd.NewClient(flags.EtcdAddresses)

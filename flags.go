@@ -22,6 +22,8 @@ var flags struct {
 
 	AnnounceTTL      uint64 `long:"announce-ttl" decsription:"announce time-to-live in seconds, set as ttl to the announcement value in etcd" default:"60"`
 	AnnounceInterval uint64 `long:"announce-interval" description:"announce interval in seconds, this should always be a lower value than --announce-ttl" default:"45"`
+
+	LoggingDisableTimestamp bool `long:"logging-disable-timestamp" description:"do not write timestamp before each log message"`
 }
 
 // parseFlags parses the given arguments.
