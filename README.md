@@ -15,7 +15,8 @@ This project contains two parts:
 This repository is available as automatically built docker container image in docker hub as `geertjohan/aerospike-discovery`.
 
 #### CoreOS example (systemd, flannel)
-TODO
+
+[Example using CoreOS and cloud-config](docs/Example-CoreOS-cloud-config.md) (setup an Aerospike instance with automated Aerospike cluster discovery).
 
 ### asdisc
 The asdisc package provides a simple API to connect any application to an aerospike cluster.
