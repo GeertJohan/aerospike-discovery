@@ -21,4 +21,4 @@ This repository is available as automatically built docker container image in do
 ### asdisc
 The asdisc package provides a simple API to connect any application to an aerospike cluster.
 
-TODO: usage example
+An example application using the asdisc to discover and connect to an aerospike cluster can be found in the [examples/clusterinfo](examples/clusterinfo) folder.

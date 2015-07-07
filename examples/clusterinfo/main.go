@@ -6,26 +6,29 @@ import (
 
 	"github.com/GeertJohan/aerospike-discovery/asdisc"
 	as "github.com/aerospike/aerospike-client-go"
-	"github.com/coreos/go-etcd/etcd"
 )
 
 func main() {
+	// Create a new aerospike-discovery watcher using default configuration settings
+	watcher := asdisc.NewWatcher(nil)
 
-	watcher := asdisc.NewWatcher(&asdisc.WatcherConfig{
-		EtcdClient: etcd.NewClient([]string{"http://10.0.3.56:2379"}),
-	})
+	// Retrieve an announcement
+	// This method is blocking and only returns once an announcement was found,
+	// that means this application could be started before the cluster is up and it will just wait for the cluster.
 	ann, err := watcher.Next()
 	if err != nil {
 		log.Fatalf("error getting aerospike-discovery announcement: %v", err)
 	}
+	// Close the watcher, we're not interested in more announcements right now.
 	watcher.Close()
 
-	// create new as client
+	// Create a new Aerospike client using the announcement information
 	asClient, err := as.NewClient(ann.IP, int(ann.ServicePort))
 	if err != nil {
 		log.Fatalf("error creating new client: %v", err)
 	}
 
+	// Loop over cluster nodes and print some simple information
 	nodes := asClient.GetNodes()
 	for _, node := range nodes {
 		stats, err := as.RequestNodeStats(node)
