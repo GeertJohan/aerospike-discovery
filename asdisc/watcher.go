@@ -160,7 +160,7 @@ func (w *Watcher) Close() {
 	default:
 		// if there was no error yet, set ErrWatcherClosed
 		if w.err == nil {
-			// there's a race here but it's not a problem
+			// there's a race here but it could only cause w.err to be set with ErrWatcherClosed multiple times
 			w.err = ErrWatcherClosed
 		}
 
