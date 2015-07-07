@@ -159,7 +159,7 @@ func (w *Watcher) Close() {
 	case <-w.stopCh:
 	default:
 		// if there was no error yet, set ErrWatcherClosed
-		if w.err != nil {
+		if w.err == nil {
 			// there's a race here but it's not a problem
 			w.err = ErrWatcherClosed
 		}
