@@ -11,6 +11,8 @@ This project contains two parts:
  - announce the local Aerospike node to etcd.
  - watch etcd for announcements and tip the local Aerospike node about new nodes in the cluster.
 
+To install run: `go get github.com/GeertJohan/aerospike-discovery` or use the docker container.
+
 #### Docker
 This repository is available as automatically built docker container image in docker hub as `geertjohan/aerospike-discovery`.
 
