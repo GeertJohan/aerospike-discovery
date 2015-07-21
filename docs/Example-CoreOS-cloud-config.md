@@ -134,7 +134,7 @@ write_files:
         replication-factor 2
 
         storage-engine device {
-          device /dev/aerospike-data
+          device /dev/by-id/yourSSD
           write-block-size 128k
         }
 
